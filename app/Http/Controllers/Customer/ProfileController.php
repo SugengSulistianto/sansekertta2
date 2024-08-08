@@ -13,6 +13,10 @@ use File;
 
 class ProfileController extends Controller
 {
+    public function __construct(){
+        $this->middleware(['auth','verified']);
+    }
+
     public function profile(){
         if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('store')){
             return redirect()->route('dashboard');
@@ -26,7 +30,6 @@ class ProfileController extends Controller
     }
 
     public function updateprofile(Request $req){
-        // return $req;
         $user = User::findOrFail($req->id);
         $user->name = $req->name;
 

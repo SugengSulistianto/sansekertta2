@@ -156,6 +156,8 @@
                         <label for="password">Password</label>
                     </div>
                     <span style="font-size:12px; display:inline;">Don't have an account ? <a style="font-size:12px; display:inline;" href="{{ route('register') }}">Register</a></span>
+                    <br>
+                    <div style="font-size:12px; display:inline;"><a style="font-size:12px; display:inline;" href="{{ route('loginadmin') }}">Login As Admin</a></div>
                     <button type="submit">Login</button>
                 </form>
             </div>

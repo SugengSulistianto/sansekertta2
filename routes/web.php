@@ -14,8 +14,9 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [App\Http\Controllers\WelcomeController::class, 'index'])->name('welcome');
+Route::get('/loginadmin', [App\Http\Controllers\WelcomeController::class, 'loginadmin'])->name('loginadmin');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/p/{code}', [App\Http\Controllers\WelcomeController::class, 'productdetail'])->name('productdetail');

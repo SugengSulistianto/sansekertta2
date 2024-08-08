@@ -12,6 +12,10 @@ use App\Services\Midtrans\CallbackService;
 
 class WelcomeController extends Controller
 {
+    public function loginadmin(){
+        return view('loginadmin');
+    }
+    
     public function index(){
         // $categories_side = Category::latest()->take(7)->get();
         $categories_side = Category::take(9)->get();

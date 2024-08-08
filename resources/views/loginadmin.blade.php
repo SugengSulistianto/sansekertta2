@@ -141,31 +141,26 @@
     </div>
   </header>
   <main>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Verifikasi Email Mu') }}</div>
-
-                <div class="card-body">
-                    @if (session('resent'))
-                        <div class="alert alert-success" role="alert">
-                            {{ __('Link verifikasi baru telah dikirim ke email mu') }}
-                        </div>
-                    @endif
-
-                    {{ __('Before proceeding, please check your email for a verification link.') }}
-                    {{ __('If you did not receive the email') }},
-                    <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
-                        @csrf
-                        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
-                    </form>
-                </div>
+    <div class="banner">
+        <div class="login-container">
+            <div class="login-form">
+                <h2>Admin Login</h2>
+                <form action="{{ route('login') }}" method="post">
+                    @csrf
+                    <div class="input-group">
+                        <input type="text" id="username" name="email" required>
+                        <label for="username">Email</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="password" name="password" required>
+                        <label for="password">Password</label>
+                    </div>
+                    <button type="submit">Login</button>
+                </form>
             </div>
         </div>
     </div>
-</div>
-<footer style="padding-top: 35px;">
+  <footer style="padding-top: 35px;">
     <div class="footer-nav">
       <div class="container">
         <ul class="footer-nav-list">        
@@ -257,7 +252,7 @@
       </div>
     </div>
   </footer>
-    <!--
+  <!--
     - custom js link
   -->
   <script src="{{ url('front') }}/assets/js/script.js"></script>

@@ -44,8 +44,6 @@
                                             <td>{{ $row->email }}</td>
                                             <td>{{ $row->details->point }}</td>
                                             <td>
-                                                <a href="{{ route('admin.customer.edit', ['id' => $row->id]) }}"
-                                                    class="btn btn-warning"><i class="fa fa-edit"></i></a>
                                                 <a href="{{ route('admin.customer.delete', ['id' => $row->id]) }}"
                                                     onclick="return confirm('Are you sure?'); return false;"
                                                     class="btn btn-danger"><i class="fa fa-trash"></i></a>
