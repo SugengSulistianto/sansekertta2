@@ -19,6 +19,11 @@
                     <p class="price">Rp. {{ number_format($product->price, 0, ',', '.') }}</p>
                 </div>
                 <input type="number" name="amount" class="amount-input" style="border: 1px solid; padding:5px 7px; border-radius: 10px; margin: 10px 0; max-width: 10%;">
+                <select name="size" id="size"  style="border: 1px solid; padding:5px 7px; border-radius: 10px; margin: 10px 0; max-width: 10%;">
+                    @foreach($product->sizes as $s)
+                        <option value="{{ $s->size }}">{{ $s->size }}</option>
+                    @endforeach
+                </select>
                 <button class="add-cart-btn">add to cart</button>
                 <div class="showcase-status">
                     <div class="wrapper">
@@ -44,7 +49,8 @@ $(document).ready(function(){
 
         let amount = $('input.amount-input').val();
         let productId = '{{ $product->code }}'; 
-        console.log(amount, productId);
+        let size = $('#size').val(); 
+        console.log(amount, productId, size);
 
         $.ajax({
             url: '/addtocart',
@@ -52,7 +58,8 @@ $(document).ready(function(){
             data: {
                 _token: '{{ csrf_token() }}',
                 product_code: productId,
-                amount: amount
+                amount: amount,
+                size: size
             },
             success: function(response) {
                 // Handle successful response 

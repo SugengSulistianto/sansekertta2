@@ -38,6 +38,17 @@
                                     <input type="number" name="price" class="form-control" placeholder="Product Price" required>
                                 </div>
                                 <div class="form-group">
+                                    <label class="d-block">Sizes</label>
+                                    <div class="d-flex flex-wrap">
+                                        @foreach($sizes as $s)
+                                            <div class="mr-4">
+                                                <input type="checkbox" name="size[]" value="{{ $s->id }}">
+                                                <label class="text-muted my-0 ml-1">{{ $s->size }}</label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label>Product Weight</label>
                                     <input type="number" name="weight" class="form-control" placeholder="Product Weight" required>
                                 </div>

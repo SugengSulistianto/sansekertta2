@@ -29,7 +29,7 @@
                                         <th>Order Status</th>
                                         <th>Order Total</th>
                                         <th>Order Payment Status</th>
-                                        <th>isVerified</th>
+                                        <th>Items Total</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -40,7 +40,7 @@
                                             <td>{{ $row->status }}</td>
                                             <td>{{ $row->total }}</td>
                                             <td>{{ $row->payment_status }}</td>
-                                            <td>{{ $row->isVerified == 0 ? 'False' : 'True' }}</td>
+                                            <td>{{ $row->details->count() }}</td>
                                             <td>
                                                 <a href="{{ route('admin.order.detail', ['id' => $row->id]) }}"
                                                     class="btn btn-primary">Detail</a>

@@ -12,6 +12,8 @@ use App\Models\Order;
 use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\Discount;
+use App\Models\Shipment;
+use App\Models\StoreInfo;
 use Illuminate\Support\Str;
 use App\Services\Midtrans\CreateSnapTokenService;
 use App\Services\Midtrans\CallbackService;
@@ -26,6 +28,7 @@ class OrderController extends Controller
 
         $productCode = $req->product_code;
         $amount = $req->amount;
+        $size = $req->size;
         $user = Auth::user();
 
         // Cek apakah produk ada
@@ -54,13 +57,14 @@ class OrderController extends Controller
             Cart::create([
                 'user_id' => $user->id,
                 'product_code' => $productCode,
-                'amount' => $amount
+                'amount' => $amount,
+                'size' => $size
             ]);
         }
 
         // Kurangi stok produk
-        // $product->stock -= $amount;
-        // $product->save();
+        $product->stock -= $amount;
+        $product->save();
 
         return response()->json(['message' => 'Product added to cart successfully'], 200);
     }
@@ -68,6 +72,9 @@ class OrderController extends Controller
     public function deletefromcart(Request $request){
         $cartId = $request->input('id');
         $cartItem = Cart::find($cartId);
+        $product = Product::find($cartItem->product_code);
+        $product->stock += $cartItem->amount;
+        $product->save();
 
         if ($cartItem && $cartItem->user_id == Auth::id()) {
             $cartItem->delete();
@@ -90,9 +97,25 @@ class OrderController extends Controller
             $order->id = $orderId;
             $order->user_id = $user->id;
             $order->status = 'On Process';
-            $order->total = 0; // Initialize total
-            // $order->payment_status = 'unpaid';
+            $order->total = 0; 
             $order->save();
+
+            $shipment = null;
+            if($order->shipment){
+                $shipment = Shipment::find($order->shipment->id);
+            }
+            if(is_null($shipment)){
+                $shipment = new Shipment;
+            }        
+            // return $order->shipment;
+            $shipment->order_id = $order->id;
+            $shipment->price = $request->price;
+            $shipment->courier = $request->courier;
+            $shipment->estimate = $request->estimate;
+            $shipment->service = $request->service;
+            $shipment->shipment_status = 'PICKUP';
+
+            $shipment->save();
 
             $total = 0;
 
@@ -104,6 +127,7 @@ class OrderController extends Controller
                     $orderDetail->order_id = $order->id;
                     $orderDetail->product_code = $cartItem->product_code;
                     $orderDetail->amount = $cartItem->amount;
+                    $orderDetail->size = $cartItem->size;
                     $orderDetail->subtotal = $cartItem->amount * $cartItem->product->price;
                     $orderDetail->save();
 
@@ -134,6 +158,20 @@ class OrderController extends Controller
         }
 
         return response()->json(['success' => false, 'message' => 'No items selected'], 400);
+    }
+
+    public function comfirmShipment($id){
+        $shipment = Shipment::find($id);
+        $shipment->shipment_status = 'CONFIRMED';
+
+        $shipment->save();
+
+        $storeinfo = StoreInfo::find(1);        
+        $user = Auth::user()->id;
+        $user = User::findOrFail($user);
+
+        return view('customer.shipment', compact(['user', 'storeinfo']));
+
     }
 
     public function payorder(Request $req){

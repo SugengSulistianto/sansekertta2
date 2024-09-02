@@ -68,213 +68,213 @@
         </div>
     </header>
     <div class="container bootstrap snippet">
-    <div class="row" style="min-height: 75vh; padding: 5% 0">
-  		<div class="col-sm-3">   
-            <div class="text-center">
-                <img id="photoPreview" src="{{ ($user->details != null && $user->details->photo != null) ? url('image/photo-customer/' . $user->details->photo) : 'http://ssl.gstatic.com/accounts/ui/avatar_2x.png' }} " class="avatar img-circle img-thumbnail" alt="avatar">
-                
-            </div></hr><br>                
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <span class="text-warning">Point Kamu : {{ $user->details->point }}</span>
-                </div>
-                <div class="panel-heading">
-                    <a href="{{ route('welcome') }}">Shop</a>
-                </div>
-                <div class="panel-heading">
-                    <a href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                                        document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
-                    </a>
+        <div class="row" style="min-height: 75vh; padding: 5% 0">
+            <div class="col-sm-3">   
+                <div class="text-center">
+                    <img id="photoPreview" src="{{ ($user->details != null && $user->details->photo != null) ? url('image/photo-customer/' . $user->details->photo) : 'http://ssl.gstatic.com/accounts/ui/avatar_2x.png' }} " class="avatar img-circle img-thumbnail" alt="avatar">
+                    
+                </div></hr><br>                
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <span class="text-warning">Point Kamu : {{ $user->details->point }}</span>
+                    </div>
+                    <div class="panel-heading">
+                        <a href="{{ route('welcome') }}">Shop</a>
+                    </div>
+                    <div class="panel-heading">
+                        <a href="{{ route('logout') }}"
+                            onclick="event.preventDefault();
+                                            document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
 
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
-                </div>
-            </div>
-        </div><!--/col-3-->
-    	<div class="col-sm-9">
-            <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#home">Profile</a></li>
-                <li class=""><a data-toggle="tab" href="#cart">Cart</a></li>
-                <li class=""><a data-toggle="tab" href="#order">Order</a></li>
-                <li class=""><a data-toggle="tab" href="#payment">Payment</a></li>
-                <li class=""><a data-toggle="tab" href="#shipment">Shipment</a></li>
-              </ul>              
-            <div class="tab-content">
-                <div class="tab-pane active" id="home">
-                        <form class="form" action="{{ route('profile.update') }}" method="post" id="registrationForm" enctype="multipart/form-data">
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
-                            <input type="hidden" name="id" value="{{ $user->id }}">
-                            <input type="hidden" name="province_name" id="province_name">
-                            <input type="hidden" name="city_name" id="city_name">
-                            <div class="form-group p-3 mb-5">                          
-                                <div class="col-xs-6">
-                                    <label for="first_name">Name</label>
-                                    <input type="text" required class="form-control" value="{{ $user->name }}" name="name" placeholder="first name" title="enter your name">
-                                </div>                         
-                                <div class="col-xs-6">
-                                    <label for="first_name">Email</label>
-                                    <input type="text" required class="form-control" value="{{ $user->email }}" name="email" placeholder="first name" title="enter your email">
-                                </div>
-                            </div>
-                            <div class="form-group p-3 mb-5">                          
-                                <div class="col-xs-6">
-                                    <label for="first_name">Password</label>
-                                    <input type="password" class="form-control" name="password" placeholder="Password" title="enter your first name if any.">
-                                </div>                         
-                                <div class="col-xs-6">
-                                    <label for="first_name">Photo</label>
-                                    <input type="file" name="photo" id="photoInput">
-                                </div>
-                            </div>    
-                            <div class="form-group p-3 mb-5">                
-                                <div class="col-xs-6">
-                                    <label for="first_name">Province</label>
-                                    <select name="province" class="form-control" id="provinceInput">
-                                        <option>-- Select Province --</option>
-                                    </select>
-                                </div>                         
-                                <div class="col-xs-6">
-                                    <label for="first_name">City</label>
-                                    <select name="city" class="form-control" id="cityInput">
-                                        <option>-- Select City --</option>
-                                    </select>
-                                </div>
-                            </div>    
-                            <div class="form-group p-3 mb-5">                          
-                                <div class="col-xs-6">
-                                    <label for="first_name">Phone</label>
-                                    <input type="text" required class="form-control" value="{{ $user->details && $user->details->phone ? $user->details->phone : '' }}" name="phone" placeholder="Phone" title="enter your Phone">
-                                </div>                         
-                                <div class="col-xs-6">
-                                    <label for="first_name">Postal Code</label>
-                                    <input type="text" required class="form-control" value="{{ $user->details && $user->details->postal_code ? $user->details->postal_code : '' }}" id="postal_code" readonly name="postal_code" placeholder="Postal Code" title="enter your Postal Code">
-                                </div>
-                            </div>
-                            <div class="form-group p-3 mb-5">                          
-                                <div class="col-xs-6">
-                                    <label for="first_name">Gender</label>
-                                    <select name="gender" class="form-control" id="">
-                                        <option value="man" <?= ($user->details && $user->details->gender) == 'man' ? 'selected' : '' ?>>Man</option>
-                                        <option value="women" <?= ($user->details && $user->details->gender) == 'women' ? 'selected' : '' ?>>Women</option>
-                                    </select>
-                                </div>                      
-                                <div class="col-xs-6">
-                                    <label for="first_name">Detail Address</label>
-                                    <textarea required name="detail_address" class="form-control" id="" cols="30" rows="10">{{ $user->details && $user->details->detail_address ? $user->details->detail_address : '' }}</textarea>
-                                </div>   
-                            </div>
-                            <div class="form-group p-3 mb-5 pb-5">
-                                <div class="col-xs-12">
-                                        <br>
-                                        <button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
-                                        <button class="btn" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
-                                </div>
-                            </div>
-                        </form>                    
-                    <hr>
-                </div>
-                <div class="tab-pane" id="cart">    
-                    <div class="container mt-5">
-                        @foreach(Auth::user()->carts as $c)
-                        <div class="card mb-3">
-                            <div class="card-body d-flex justify-content-between align-items-center">
-                                <div class="d-flex align-items-center" style="width: 75%;">
-                                    <input type="checkbox" class="mr-3 cart-checkbox" data-cart-id="{{ $c->id }}" style="width: 15%;">
-                                    <div style="width: 85%;">                 
-                                        <div class="mt-3 mb-3">
-                                            <img src="{{ asset($c->product->photo ? 'image/photo-product/' . $c->product->photo : '') }}" alt="{{ $c->product->name }}" class="showcase-img" width="100">
-                                        </div>
-                                        <h5 class="card-title mb-0">{{ $c->product->name }}</h5>
-                                        <p class="card-text mb-2">Rp. {{ number_format($c->product->price, 0, ',', '.') }}</p>
-                                        <p class="card-text text-muted mb-0">Jumlah : {{ $c->amount }}</p>
-                                    </div>
-                                </div>
-                                <button class="btn btn-danger btn-sm delete-btn" data-cart-id="{{ $c->id }}" style="width: 25%;">Delete</button>
-                            </div>
-                        </div>
-                        @endforeach
-                        <div style="display: flex;">
-                            <input type="checkbox" value="true" style="width: 2%; margin-right: 10px;" name="usePoint" id="usePoint"> 
-                            <span>Gunakan <span class="text-warning">{{ $user->details->point }}</span> Point</span>
-                        </div>
-                    <button class="btn btn-primary mt-3" id="order-btn">Order</button>
+                        </form>
                     </div>
                 </div>
-                <div class="tab-pane" id="order">    
-                    @foreach(Auth::user()->orders as $order)
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <h5 class="card-title">Order ID: {{ substr($order->id, 0, 8) }}</h5>
-                                <p class="card-text">Order Status: {{ $order->status }}</p>
-                                <p class="card-text">Verified Status: {!! $order->isVerified ? "<span style='color:green;'>True</span>" : "<span style='color:red;'>False</span>" !!}</p>
-                                <p class="card-text">Total: Rp. {{ number_format($order->total, 0, ',', '.') }}</p>
-                                <p class="card-text">Payment Status: {{ $order->payment_status }}</p>
-                                <hr>
-                                <h6>Order Items:</h6>
-                                <ul class="list-group">
-                                    @foreach($order->details as $detail)
-                                        <li class="list-group-item">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <img src="{{ asset($detail->product->photo ? 'image/photo-product/' . $detail->product->photo : '') }}" alt="{{ $detail->product->name }}" class="showcase-img" width="100">
-                                                    <span>{{ $detail->product->name }}</span>
-                                                </div>
-                                                <div>
-                                                    <div>Amount: {{ $detail->amount }}</div>
-                                                    <div>Subtotal: Rp. {{ number_format($detail->subtotal, 0, ',', '.') }}</div>
-                                                </div>
+            </div><!--/col-3-->
+            <div class="col-sm-9">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#home">Profile</a></li>
+                    <li class=""><a data-toggle="tab" href="#cart">Cart</a></li>
+                    <li class=""><a data-toggle="tab" href="#order">Order</a></li>
+                    <li class=""><a data-toggle="tab" href="#payment">Payment</a></li>
+                    <li class=""><a data-toggle="tab" href="#shipment">Shipment</a></li>
+                </ul>              
+                <div class="tab-content">
+                    <div class="tab-pane active" id="home">
+                            <form class="form" action="{{ route('profile.update') }}" method="post" id="registrationForm" enctype="multipart/form-data">
+                                @csrf
+                                <input type="hidden" name="id" value="{{ $user->id }}">
+                                <input type="hidden" name="province_name" id="province_name">
+                                <input type="hidden" name="city_name" id="city_name">
+                                <div class="form-group p-3 mb-5">                          
+                                    <div class="col-xs-6">
+                                        <label for="first_name">Name</label>
+                                        <input type="text" required class="form-control" value="{{ $user->name }}" name="name" placeholder="first name" title="enter your name">
+                                    </div>                         
+                                    <div class="col-xs-6">
+                                        <label for="first_name">Email</label>
+                                        <input type="text" required class="form-control" value="{{ $user->email }}" name="email" placeholder="first name" title="enter your email">
+                                    </div>
+                                </div>
+                                <div class="form-group p-3 mb-5">                          
+                                    <div class="col-xs-6">
+                                        <label for="first_name">Password</label>
+                                        <input type="password" class="form-control" name="password" placeholder="Password" title="enter your first name if any.">
+                                    </div>                         
+                                    <div class="col-xs-6">
+                                        <label for="first_name">Photo</label>
+                                        <input type="file" name="photo" id="photoInput">
+                                    </div>
+                                </div>    
+                                <div class="form-group p-3 mb-5">                
+                                    <div class="col-xs-6">
+                                        <label for="first_name">Province</label>
+                                        <select name="province" class="form-control" id="provinceInput">
+                                            <option>-- Select Province --</option>
+                                        </select>
+                                    </div>                         
+                                    <div class="col-xs-6">
+                                        <label for="first_name">City</label>
+                                        <select name="city" class="form-control" id="cityInput">
+                                            <option>-- Select City --</option>
+                                        </select>
+                                    </div>
+                                </div>    
+                                <div class="form-group p-3 mb-5">                          
+                                    <div class="col-xs-6">
+                                        <label for="first_name">Phone</label>
+                                        <input type="text" required class="form-control" value="{{ $user->details && $user->details->phone ? $user->details->phone : '' }}" name="phone" placeholder="Phone" title="enter your Phone">
+                                    </div>                         
+                                    <div class="col-xs-6">
+                                        <label for="first_name">Postal Code</label>
+                                        <input type="text" required class="form-control" value="{{ $user->details && $user->details->postal_code ? $user->details->postal_code : '' }}" id="postal_code" readonly name="postal_code" placeholder="Postal Code" title="enter your Postal Code">
+                                    </div>
+                                </div>
+                                <div class="form-group p-3 mb-5">                          
+                                    <div class="col-xs-6">
+                                        <label for="first_name">Gender</label>
+                                        <select name="gender" class="form-control" id="">
+                                            <option value="man" <?= ($user->details && $user->details->gender) == 'man' ? 'selected' : '' ?>>Man</option>
+                                            <option value="women" <?= ($user->details && $user->details->gender) == 'women' ? 'selected' : '' ?>>Women</option>
+                                        </select>
+                                    </div>                      
+                                    <div class="col-xs-6">
+                                        <label for="first_name">Detail Address</label>
+                                        <textarea required name="detail_address" class="form-control" id="" cols="30" rows="10">{{ $user->details && $user->details->detail_address ? $user->details->detail_address : '' }}</textarea>
+                                    </div>   
+                                </div>
+                                <div class="form-group p-3 mb-5 pb-5">
+                                    <div class="col-xs-12">
+                                            <br>
+                                            <button class="btn btn-success" type="submit"><i class="glyphicon glyphicon-ok-sign"></i> Save</button>
+                                            <button class="btn" type="reset"><i class="glyphicon glyphicon-repeat"></i> Reset</button>
+                                    </div>
+                                </div>
+                            </form>                    
+                        <hr>
+                    </div>
+                    <div class="tab-pane" id="cart">    
+                        <div class="container mt-5">
+                            @foreach(Auth::user()->carts as $c)
+                            <div class="card mb-3">
+                                <div class="card-body d-flex justify-content-between align-items-center">
+                                    <div class="d-flex align-items-center" style="width: 75%;">
+                                        <input type="checkbox" class="mr-3 cart-checkbox" data-cart-id="{{ $c->id }}" style="width: 15%;">
+                                        <div style="width: 85%;">                 
+                                            <div class="mt-3 mb-3">
+                                                <img src="{{ asset($c->product->photo ? 'image/photo-product/' . $c->product->photo : '') }}" alt="{{ $c->product->name }}" class="showcase-img" width="100">
                                             </div>
-                                        </li>
-                                    @endforeach
-                                </ul>
+                                            <h5 class="card-title mb-0">{{ $c->product->name }}</h5>
+                                            <p class="card-text mb-2">Rp. {{ number_format($c->product->price, 0, ',', '.') }}</p>
+                                            <p class="card-text text-muted mb-0">Jumlah : {{ $c->amount }}</p>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-danger btn-sm delete-btn" data-cart-id="{{ $c->id }}" style="width: 25%;">Delete</button>
+                                </div>
                             </div>
+                            @endforeach
+                            <div style="display: flex;">
+                                <input type="checkbox" value="true" style="width: 2%; margin-right: 10px;" name="usePoint" id="usePoint"> 
+                                <span>Gunakan <span class="text-warning">{{ $user->details->point }}</span> Point</span>
+                            </div>
+                        <button class="btn btn-primary mt-3" id="order-btn">Order</button>
                         </div>
-                    @endforeach
-                </div>
-                <div class="tab-pane" id="payment"> 
-                    @if(sizeof($payment) != 0)
-                        @foreach($payment as $p)
+                    </div>
+                    <div class="tab-pane" id="order">    
+                        @foreach(Auth::user()->orders as $order)
                             <div class="card mb-3">
                                 <div class="card-body">
-                                <h5 class="card-title">Order ID: {{ substr($p->id, 0, 8) }}</h5>
-                                    <p class="card-text">Order Status: {{ $p->status }}</p>
-                                    <p class="card-text">Total: Rp. {{ number_format($p->total, 0, ',', '.') }}</p>
-                                    <p class="card-text">Payment Status: {{ $p->payment_status }}</p>
+                                    <h5 class="card-title">Order ID: {{ substr($order->id, 0, 8) }}</h5>
+                                    <p class="card-text">Order Status: {{ $order->status }}</p>
+                                    <p class="card-text">Verified Status: {!! $order->isVerified ? "<span style='color:green;'>True</span>" : "<span style='color:red;'>False</span>" !!}</p>
+                                    <p class="card-text">Total: Rp. {{ number_format($order->total, 0, ',', '.') }}</p>
+                                    <p class="card-text">Payment Status: {{ $order->payment_status }}</p>
+                                    <hr>
+                                    <h6>Order Items:</h6>
+                                    <ul class="list-group">
+                                        @foreach($order->details as $detail)
+                                            <li class="list-group-item">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div>
+                                                        <img src="{{ asset($detail->product->photo ? 'image/photo-product/' . $detail->product->photo : '') }}" alt="{{ $detail->product->name }}" class="showcase-img" width="100">
+                                                        <span>{{ $detail->product->name }}</span>
+                                                    </div>
+                                                    <div>
+                                                        <div>Amount: {{ $detail->amount }}</div>
+                                                        <div>Subtotal: Rp. {{ number_format($detail->subtotal, 0, ',', '.') }}</div>
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        @endforeach
+                                    </ul>
                                 </div>
-                                @if($p->payment_status != 'SUCCESS')
-                                    <button class="btn btn-primary mt-3" data-order-id="{{ $p->id }}" id="pay-btn">Pay Now</button> 
-                                @endif
+                            </div>
+                        @endforeach
+                    </div>
+                    <div class="tab-pane" id="payment"> 
+                        @if(sizeof($payment) != 0)
+                            @foreach($payment as $p)
+                                <div class="card mb-3">
+                                    <div class="card-body">
+                                    <h5 class="card-title">Order ID: {{ substr($p->id, 0, 8) }}</h5>
+                                        <p class="card-text">Order Status: {{ $p->status }}</p>
+                                        <p class="card-text">Total: Rp. {{ number_format($p->total, 0, ',', '.') }}</p>
+                                        <p class="card-text">Payment Status: {{ $p->payment_status }}</p>
+                                    </div>
+                                    @if($p->payment_status != 'SUCCESS')
+                                        <button class="btn btn-primary mt-3" data-order-id="{{ $p->id }}" id="pay-btn">Pay Now</button> 
+                                    @endif
+                                </div>
+                            @endforeach 
+                        @else
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">All Payments completed</h5>
+                                </div>
+                            </div>
+                        @endif
+                    </div>
+                    <div class="tab-pane" id="shipment">    
+                        @foreach($user->orders as $o)
+                            <div class="card mb-3">
+                                <div class="card-body">
+                                    <h5 class="card-title">Order ID: {{ $o->shipment ? substr($o->shipment->order_id, 0, 8) : '' }}</h5>
+                                    <p class="card-text">Shipment Price: {{ $o->shipment ? $o->shipment->price : '' }}</p>
+                                    <p class="card-text">Shipment Courier: {{ $o->shipment ? $o->shipment->courier : '' }}</p>
+                                    <p class="card-text">Shipment Estimate: {{ $o->shipment ? $o->shipment->estimate : '' }}</p>
+                                    <p class="card-text">Shipment Resi: {{ $o->shipment ? $o->shipment->resi : '' }}</p>
+                                    <p class="card-text">Shipment Status: {{ $o->shipment ? $o->shipment->status : '' }}</p>
+                                    <p class="card-text">Shipment Price: Rp. {{ $o->shipment ? number_format($o->shipment->price, 0, ',', '.') : '' }}</p>
+                                </div>
                             </div>
                         @endforeach 
-                    @else
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <h5 class="card-title">All Payments completed</h5>
-                            </div>
-                        </div>
-                    @endif
-                </div>
-                <div class="tab-pane" id="shipment">    
-                    @foreach($user->orders as $o)
-                        <div class="card mb-3">
-                            <div class="card-body">
-                                <h5 class="card-title">Order ID: {{ $o->shipment ? substr($o->shipment->order_id, 0, 8) : '' }}</h5>
-                                <p class="card-text">Shipment Price: {{ $o->shipment ? $o->shipment->price : '' }}</p>
-                                <p class="card-text">Shipment Courier: {{ $o->shipment ? $o->shipment->courier : '' }}</p>
-                                <p class="card-text">Shipment Estimate: {{ $o->shipment ? $o->shipment->estimate : '' }}</p>
-                                <p class="card-text">Shipment Resi: {{ $o->shipment ? $o->shipment->resi : '' }}</p>
-                                <p class="card-text">Shipment Status: {{ $o->shipment ? $o->shipment->status : '' }}</p>
-                                <p class="card-text">Shipment Price: Rp. {{ $o->shipment ? number_format($o->shipment->price, 0, ',', '.') : '' }}</p>
-                            </div>
-                        </div>
-                    @endforeach 
+                    </div>
                 </div>
             </div>
-        </div>
-    </div><!--/row-->
+        </div><!--/row-->
     </div>
     <footer style="padding-top: 35px;">
         <div class="footer-nav">

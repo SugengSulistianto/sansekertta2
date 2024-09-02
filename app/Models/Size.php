@@ -5,18 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Shipment extends Model
+class Size extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'id',
-        'order_id',
-        'price',
-        'courier',
-        'estimate',
-        'service',
-        'shipment_status',
-        'resi'
-    ];
+        'size',
+    ];   
+
+    public function products(){
+        return $this->belongsToMany(Product::class, 'product_size', 'size_id', 'product_code');
+    }
 }

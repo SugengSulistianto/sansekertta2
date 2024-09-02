@@ -27,7 +27,7 @@
                                     <label>Product Photo</label>
                                     <div>
                                         <img id="photoPreview" src="{{ asset($product->photo ? 'image/photo-product/' . $product->photo : '') }}" alt="Your image" style="width: 200px; height: auto; margin-bottom: 10px;"/>
-                                        <input type="file" name="photo" class="form-control" id="photoInput" required>
+                                        <input type="file" name="photo" class="form-control" id="photoInput">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -39,12 +39,31 @@
                                     <input type="number" value="{{ $product->price }}" name="price" class="form-control" placeholder="Product Price" required>
                                 </div>
                                 <div class="form-group">
+                                    <label class="d-block">Sizes</label>
+                                    <div class="d-flex flex-wrap">
+                                        @foreach($sizes as $s)
+                                            <div class="mr-4">
+                                                <input type="checkbox" name="size[]" value="{{ $s->id }}" 
+                                                    <?php
+                                                        foreach($product->sizes as $si){
+                                                            if($si->id == $s->id){
+                                                                echo "checked";
+                                                            }
+                                                        }
+                                                    ?>
+                                                >
+                                                <label class="text-muted my-0 ml-1">{{ $s->size }}</label>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label>Product Weight</label>
                                     <input type="number" value="{{ $product->weight }}" name="weight" class="form-control" placeholder="Product Weight" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Product Stock</label>
-                                    <input type="number" value="{{ $product->weight }}" name="stock" class="form-control" placeholder="Product Stock" required>
+                                    <input type="number" value="{{ $product->stock }}" name="stock" class="form-control" placeholder="Product Stock" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Product Description</label>

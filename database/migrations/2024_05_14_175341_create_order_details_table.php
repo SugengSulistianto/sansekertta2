@@ -19,6 +19,7 @@ class CreateOrderDetailsTable extends Migration
             $table->string('product_code');
             $table->integer('amount');
             $table->double('subtotal');
+            $table->string('size')->nullable();
             $table->double('shipment_fee')->nullable();
             $table->timestamps();
 

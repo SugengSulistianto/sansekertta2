@@ -167,6 +167,16 @@
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ route('admin.size.index') }}"
+                                class="nav-link">
+                                <i class="nav-icon fas fa-database"></i>
+                                <p>
+                                    Sizes
+                                    {{-- <span class="badge badge-info right">2</span> --}}
+                                </p>
+                            </a>
+                        </li>
 
                         <li class="nav-header">MASTER USER </li>
                         <li class="nav-item">
@@ -266,7 +276,7 @@
         <footer class="main-footer">
             <strong>Copyright &copy; {{ date('Y') }}
                 ||</strong>
-            Super Dry and Cleaning Laundry.
+            Sanskertta
             <div class="float-right d-none d-sm-inline-block">
                 <b>Version</b> 1.0
             </div>

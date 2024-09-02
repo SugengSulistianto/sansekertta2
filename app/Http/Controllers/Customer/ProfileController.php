@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\UserDetail;
+use App\Models\StoreInfo;
 use Illuminate\Support\Facades\Hash;
 use File;
 
@@ -21,12 +22,61 @@ class ProfileController extends Controller
         if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('store')){
             return redirect()->route('dashboard');
         }
-        // return $province;
+        
         $user = Auth::user()->id;
         $user = User::findOrFail($user);
         $payment = Order::where('user_id', $user->id)->where('isVerified', 1)->get();
 
-        return view('customerprofile', compact(['user', 'payment']));
+        return view('customer.profile', compact(['user', 'payment']));
+    }
+
+    public function cart(){
+        $storeinfo = StoreInfo::find(1);
+        if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('store')){
+            return redirect()->route('dashboard');
+        }
+        
+        $user = Auth::user()->id;
+        $user = User::findOrFail($user);
+
+        return view('customer.cart', compact(['user', 'storeinfo']));
+    }
+
+    public function order(){
+        $storeinfo = StoreInfo::find(1);
+        if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('store')){
+            return redirect()->route('dashboard');
+        }
+        
+        $user = Auth::user()->id;
+        $user = User::findOrFail($user);
+
+        return view('customer.order', compact(['user', 'storeinfo']));
+    }
+
+    public function payment(){
+        $storeinfo = StoreInfo::find(1);
+        if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('store')){
+            return redirect()->route('dashboard');
+        }
+        
+        $user = Auth::user()->id;
+        $user = User::findOrFail($user);
+        $payment = Order::where('user_id', $user)->get();
+
+        return view('customer.payment', compact(['user', 'storeinfo', 'payment']));
+    }
+
+    public function shipment(){
+        $storeinfo = StoreInfo::find(1);
+        if(Auth::user()->hasRole('admin') || Auth::user()->hasRole('store')){
+            return redirect()->route('dashboard');
+        }
+        
+        $user = Auth::user()->id;
+        $user = User::findOrFail($user);
+
+        return view('customer.shipment', compact(['user', 'storeinfo']));        
     }
 
     public function updateprofile(Request $req){

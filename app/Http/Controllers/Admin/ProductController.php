@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Size;
 use Illuminate\Support\Facades\Storage;
 use File;
 
@@ -19,8 +20,9 @@ class ProductController extends Controller
 
     public function add(){
         $category = Category::all();
+        $sizes = Size::all();
         
-        return view('admin.product.add', compact(['category']));
+        return view('admin.product.add', compact(['category', 'sizes']));
     }
 
     public function create(Request $req){
@@ -45,6 +47,10 @@ class ProductController extends Controller
         }
 
         $product->save();
+
+        if (!empty($req->size)) {
+            $product->sizes()->sync($req->size);
+        }
         
         return redirect()->route('admin.product.index');
     }
@@ -52,8 +58,9 @@ class ProductController extends Controller
     public function edit(Request $req){
         $product = Product::findOrFail($req->code);
         $category = Category::all();
+        $sizes = Size::all();
 
-        return view('admin.product.edit', compact(['product', 'category']));
+        return view('admin.product.edit', compact(['product', 'category', 'sizes']));
     }
 
     public function update(Request $req){
@@ -80,6 +87,10 @@ class ProductController extends Controller
         }
 
         $product->save();
+
+        if (!empty($req->size)) {
+            $product->sizes()->sync($req->size);
+        }
         
         return redirect()->route('admin.product.index');
     }

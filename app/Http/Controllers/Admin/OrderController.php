@@ -28,23 +28,14 @@ class OrderController extends Controller
     public function verif(Request $req){
         $order = Order::findOrFail($req->order_id);
         $order->isVerified = true;
-
-        $shipment = null;
-        if($order->shipment){
+        
+        if(!is_null($req->resi)){
             $shipment = Shipment::find($order->shipment->id);
-        }
-        if(is_null($shipment)){
-            $shipment = new Shipment;
-        }        
-        // return $order->shipment;
-        $shipment->order_id = $order->id;
-        $shipment->price = $req->price;
-        $shipment->courier = $req->courier;
-        $shipment->estimate = $req->estimate;
-        $shipment->service = $req->service;
-        $shipment->resi = $req->resi;
+            $shipment->resi = $req->resi;
+            $shipment->shipment_status = 'ONDELIVERY';
 
-        $shipment->save();
+            $shipment->save();
+        }        
         $order->save();
 
         $snapToken = $order->snap_token;

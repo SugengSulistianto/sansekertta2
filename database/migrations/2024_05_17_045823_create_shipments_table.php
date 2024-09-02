@@ -20,6 +20,7 @@ class CreateShipmentsTable extends Migration
             $table->string('courier');
             $table->string('estimate');
             $table->string('service');
+            $table->enum('shipment_status', ['PICKUP', 'ONDELIVERY', 'CONFIRMED'])->default('PICKUP');
             $table->string('resi')->nullable();
             $table->timestamps();
 

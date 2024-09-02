@@ -68,7 +68,7 @@
             <a href="{{ route('profile.customer') }}" class="action-btn">
               <ion-icon name="person-outline"></ion-icon>
             </a>
-            <a href="{{ route('profile.customer') }}" class="action-btn">
+            <a href="{{ route('cart.customer') }}" class="action-btn">
               <ion-icon name="bag-handle-outline"></ion-icon>
               <span class="count">{{ Auth::user() ? Auth::user()->carts->count() : 0 }}</span>
             </a>
@@ -104,6 +104,9 @@
         <ion-icon name="menu-outline"></ion-icon>
       </button>
       <a href="{{ route('profile.customer') }}" class="action-btn">
+        <ion-icon name="person-outline"></ion-icon>
+      </a>
+      <a href="{{ route('cart.customer') }}" class="action-btn">
         <ion-icon name="bag-handle-outline"></ion-icon>
         <span class="count">{{ Auth::user() ? Auth::user()->carts->count() : 0 }}</span>
       </a>

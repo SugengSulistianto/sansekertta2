@@ -27,11 +27,20 @@ Route::post('/payments/notif', [App\Http\Controllers\WelcomeController::class, '
 Route::group(['middleware' => ['auth']], function (){
     Route::get('/profile', [App\Http\Controllers\Customer\ProfileController::class, 'profile'])->name('profile.customer');
     Route::post('/profile-update', [App\Http\Controllers\Customer\ProfileController::class, 'updateprofile'])->name('profile.update');
+    
+    Route::get('/cart-customer', [App\Http\Controllers\Customer\ProfileController::class, 'cart'])->name('cart.customer');
+    
+    Route::get('/order-customer', [App\Http\Controllers\Customer\ProfileController::class, 'order'])->name('order.customer');
+    
+    Route::get('/payment-customer', [App\Http\Controllers\Customer\ProfileController::class, 'payment'])->name('payment.customer');
+    
+    Route::get('/shipment-customer', [App\Http\Controllers\Customer\ProfileController::class, 'shipment'])->name('shipment.customer');
 
     Route::post('/addtocart', [App\Http\Controllers\Customer\OrderController::class, 'addtocart'])->name('addtocart');
     Route::post('/deletefromcart', [App\Http\Controllers\Customer\OrderController::class, 'deletefromcart'])->name('deletefromcart');
     Route::post('/makeorder', [App\Http\Controllers\Customer\OrderController::class, 'makeorder'])->name('makeorder');
     Route::post('/payorder', [App\Http\Controllers\Customer\OrderController::class, 'payorder'])->name('payorder');
+    Route::get('/comfirm-shipment/{id}', [App\Http\Controllers\Customer\OrderController::class, 'comfirmShipment'])->name('comfirm.shipment');
 
     
     Route::get('/get-province', [App\Http\Controllers\RajaOngkirController::class, 'get_province']);
@@ -56,6 +65,10 @@ Route::group(['middleware' => ['role:admin|store']], function (){
     Route::get('/edit-product/{code}', [App\Http\Controllers\Admin\ProductController::class, 'edit'])->name('admin.product.edit');
     Route::post('/update-product', [App\Http\Controllers\Admin\ProductController::class, 'update'])->name('admin.product.update');
     Route::get('/delete-product/{code}', [App\Http\Controllers\Admin\ProductController::class, 'delete'])->name('admin.product.delete');
+
+    Route::get('/size', [App\Http\Controllers\Admin\SizeController::class, 'index'])->name('admin.size.index');
+    Route::get('/delete-size/{id}', [App\Http\Controllers\Admin\SizeController::class, 'delete'])->name('admin.size.delete');
+    Route::post('/create-size', [App\Http\Controllers\Admin\SizeController::class, 'create'])->name('admin.size.create');
 
     Route::get('/customer', [App\Http\Controllers\Admin\CustomerController::class, 'index'])->name('admin.customer.index');
     Route::get('/add-customer', [App\Http\Controllers\Admin\CustomerController::class, 'add'])->name('admin.customer.add');

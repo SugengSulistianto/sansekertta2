@@ -29,6 +29,7 @@
                                         <th>Estimate</th>
                                         <th>Service</th>
                                         <th>Resi</th>
+                                        <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -41,6 +42,7 @@
                                             <td>{{ $row->estimate }}</td>
                                             <td>{{ $row->service }}</td>
                                             <td>{{ $row->resi }}</td>
+                                            <td>{{ $row->shipment_status }}</td>
                                         </tr>
                                     @endforeach
                             </table>

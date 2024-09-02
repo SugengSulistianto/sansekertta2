@@ -15,6 +15,7 @@ class OrderDetail extends Model
         'product_code',
         'amount',
         'subtotal',
+        'size',
         'shipment_fee' //nullable
     ];
 
