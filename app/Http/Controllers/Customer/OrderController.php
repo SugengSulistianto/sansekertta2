@@ -143,16 +143,17 @@ class OrderController extends Controller
             $order->total = $total;
             $order->save();
 
-            $discount = new Discount;
-            $discount->order_id = $order->id;
-            $discount->discount = $user->details->point == 0 ? 0 : $user->details->point;
-            $discount->discount_origin = "From User Point";
-            $discount->save();
+            if($request->usePoint == 'true'){
+                $discount = new Discount;
+                $discount->order_id = $order->id;
+                $discount->discount = $user->details->point == 0 ? 0 : $user->details->point;
+                $discount->discount_origin = "From User Point";
+                $discount->save();
 
-            $udetail = UserDetail::where('user_id',$user->id)->first();
-            $udetail->point = 0;
-            $udetail->save();
-
+                $udetail = UserDetail::where('user_id',$user->id)->first();
+                $udetail->point = 0;
+                $udetail->save();
+            }            
 
             return response()->json(['success' => true, 'message' => 'Order placed successfully']);
         }

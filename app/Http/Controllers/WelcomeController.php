@@ -96,7 +96,7 @@ class WelcomeController extends Controller
                 }                    
 
                 $detail = UserDetail::where('user_id', $ord->user_id)->first();
-                $detail->point = intval($ord->total) / 100;
+                $detail->point = intval($detail->point) + (intval($ord->total) / 100);
                 $detail->save();
             }
  
